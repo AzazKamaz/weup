@@ -108,6 +108,13 @@ class _EventState extends SliderPageState<Event> with TickerProviderStateMixin {
                         fontWeight: FontWeight.w400,
                         fontSize: 20,
                       )),
+                  Text('${data.participants.length} will come',
+                      style: TextStyle(
+                        color: Color(0xff969696),
+                        fontFamily: 'PT Sans',
+                        fontWeight: FontWeight.w400,
+                        fontSize: 20,
+                      )),
                   InkWell(
                     onTap: () {
                       final RenderBox box = context.findRenderObject();
