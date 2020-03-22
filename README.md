@@ -1,4 +1,4 @@
-# weup
+# weup!
 
 A new Flutter application.
 
