@@ -37,6 +37,7 @@ dependencies:
     git:
       url: https://github.com/AzazKamaz/flutter_map_marker_cluster.git
       ref: master
+  flutter_launcher_icons: ^0.7.4
   share: ^0.6.3+6
   flutter:
     sdk: flutter
@@ -44,6 +45,13 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon.png"
+  adaptive_icon_background: "#eff6ee"
+  adaptive_icon_foreground: "assets/adaptive_icon.png"
 
 dev_dependencies:
   flutter_test:
