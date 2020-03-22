@@ -43,13 +43,21 @@ class _EventState extends SliderPageState<Event> with TickerProviderStateMixin {
             child: Image.asset('assets/icons/cancel.png'),
             onTap: () => router.pop(context),
           ),
-          Text(title,
-              style: TextStyle(
-                color: Color(0xffeff6ee),
-                fontFamily: 'PT Sans',
-                fontWeight: FontWeight.w400,
-                fontSize: 30,
-              )),
+          SizedBox(width: 10),
+          Expanded(
+            child: Text(title,
+                maxLines: 1,
+                softWrap: false,
+                overflow: TextOverflow.fade,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Color(0xffeff6ee),
+                  fontFamily: 'PT Sans',
+                  fontWeight: FontWeight.w400,
+                  fontSize: 30,
+                )),
+          ),
+          SizedBox(width: 10),
           if (data != null && data.participants.contains(deviceId))
             InkWell(
               child: Image.asset('assets/icons/check.png'),

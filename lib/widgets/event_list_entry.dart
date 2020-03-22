@@ -35,6 +35,8 @@ class EventListEntry extends StatelessWidget {
                   children: [
                     Text(
                       data.title,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           color: Color(0xff278f82),
                           fontFamily: 'PT Sans',
