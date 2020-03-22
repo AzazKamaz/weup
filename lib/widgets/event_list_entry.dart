@@ -16,9 +16,11 @@ class EventListEntry extends StatelessWidget {
   Widget build(BuildContext context) {
     var date = DateFormat("MMM d").format(data.time.toDate());
     var time = DateFormat("HH:mm").format(data.time.toDate());
-    var dist = fmtdist(distance(
-        LatLng(data.point.latitude, data.point.longitude),
-        WeupInherited.of(context).myLocation));
+    var loc = WeupInherited.of(context).myLocation;
+    var dist = loc == null
+        ? null
+        : fmtdist(
+            distance(LatLng(data.point.latitude, data.point.longitude), loc));
     return InkWell(
       onTap: () => router.navigateTo(context, '/event/${data.id}'),
       child: Opacity(
@@ -44,7 +46,9 @@ class EventListEntry extends StatelessWidget {
                           fontSize: 25),
                     ),
                     Text(
-                      "$date at $time, ${dist} away\n${data.participants.length} will come",
+                      loc == null
+                          ? "$date at $time\n${data.participants.length} will come"
+                          : "$date at $time, $dist away\n${data.participants.length} will come",
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           color: Color(0xff969696),

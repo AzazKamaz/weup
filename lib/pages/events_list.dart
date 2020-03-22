@@ -47,7 +47,8 @@ class _EventsList extends StatelessWidget {
                 distance(weup.myLocation, LatLng(ds.latitude, ds.longitude))
                     .floor();
             var docs = snapshot.data.documents;
-            docs.sort((a, b) => dist(a['point']) - dist(b['point']));
+            if (weup.myLocation != null)
+              docs.sort((a, b) => dist(a['point']) - dist(b['point']));
             return ListView(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               children: <Widget>[_FiltersComingSoon(), NewEventListEntry()]
