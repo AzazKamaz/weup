@@ -63,7 +63,8 @@ abstract class SliderPageState<T extends StatefulWidget> extends State<T>
       SnapPosition(positionPixel: 0.0),
       SnapPosition(positionFactor: 0.5),
       SnapPosition(positionFactor: 0.9),
-    ];
+    ]
+    ..currentSnapPosition = SnapPosition(positionFactor: 0.5);
   SnapPosition _snap = SnapPosition(positionFactor: 0.5);
 
   @override
