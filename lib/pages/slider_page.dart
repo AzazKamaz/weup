@@ -5,8 +5,11 @@ import '../main.dart';
 import '../widgets/ignore_top_pointer.dart';
 
 class _SliderPageGrabber extends StatelessWidget {
-  _SliderPageGrabber({this.child});
-  Widget child;
+  _SliderPageGrabber({this.child, this.color});
+
+  final Widget child;
+  final Color color;
+
   @override
   Widget build(BuildContext context) {
     var grabber = SizedBox.fromSize(
@@ -15,7 +18,7 @@ class _SliderPageGrabber extends StatelessWidget {
         margin: EdgeInsets.all(8),
         alignment: Alignment.topCenter,
         child: SizedBox.fromSize(
-          size: const Size(64, 8),
+          size: const Size(64, 4),
           child: Container(
             decoration: const ShapeDecoration(
               shape: RoundedRectangleBorder(
@@ -28,21 +31,24 @@ class _SliderPageGrabber extends StatelessWidget {
     );
 
     var grabbing = Container(
-      decoration: ShapeDecoration(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(16),
-            topRight: Radius.circular(16),
+      child: AnimatedContainer(
+        decoration: ShapeDecoration(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(16),
+              topRight: Radius.circular(16),
+            ),
           ),
+          color: color,
         ),
-        color: Color(0xff78aaf7),
-      ),
-      child: Stack(
-        fit: StackFit.expand,
-        children: <Widget>[
-          grabber,
-          child,
-        ],
+        duration: Duration(milliseconds: 200),
+        child: Stack(
+          fit: StackFit.expand,
+          children: <Widget>[
+            grabber,
+            child,
+          ],
+        ),
       ),
     );
 
@@ -52,8 +58,13 @@ class _SliderPageGrabber extends StatelessWidget {
 
 abstract class SliderPageState<T extends StatefulWidget> extends State<T>
     with RouteAware {
-  SnappingSheetController _controller = new SnappingSheetController();
-  SnapPosition _snap;
+  SnappingSheetController snapController = new SnappingSheetController()
+    ..snapPositions = const [
+      SnapPosition(positionPixel: 0.0),
+      SnapPosition(positionFactor: 0.5),
+      SnapPosition(positionFactor: 0.9),
+    ];
+  SnapPosition _snap = SnapPosition(positionFactor: 0.5);
 
   @override
   void didChangeDependencies() {
@@ -69,27 +80,34 @@ abstract class SliderPageState<T extends StatefulWidget> extends State<T>
 
   @override
   void didPop() {
-    _controller.snapToPosition(_controller.snapPositions.first);
+    snapController.snapToPosition(snapController.snapPositions.first);
   }
 
   @override
   void didPushNext() {
-    _snap = _controller.currentSnapPosition;
-    _controller.snapToPosition(_controller.snapPositions.first);
+    _snap = snapController.currentSnapPosition;
+    snapController.snapToPosition(snapController.snapPositions.first);
   }
 
   @override
   void didPopNext() {
-    if (_snap != null) _controller.snapToPosition(_snap);
+    if (_snap != null) snapController.snapToPosition(_snap);
   }
 
-  Widget combine(BuildContext context, {Widget header, Widget body}) {
+  Widget combine(BuildContext context,
+      {Widget header,
+      Color headerColor = const Color(0xff278f82),
+      SnapPosition initSnapPosition = const SnapPosition(positionFactor: 0.5),
+      Widget body,
+      Widget background}) {
     return HitMask(
       child: SnappingSheet(
-        snappingSheetController: _controller,
+        child: background,
+        snappingSheetController: snapController,
+        initSnapPosition: initSnapPosition,
         grabbingHeight: 64,
-        grabbing: _SliderPageGrabber(child: header),
-        sheetBelow: body,
+        grabbing: _SliderPageGrabber(child: header, color: headerColor),
+        sheetBelow: Container(color: Color(0xffeff6ee), child: body),
       ),
     );
   }

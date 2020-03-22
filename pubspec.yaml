@@ -14,19 +14,30 @@ description: A new Flutter application.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.2.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
   firebase_core: ^0.4.0+9
   firebase_analytics: ^5.0.11
   cloud_firestore: ^0.13.4+2
   fluro: ^1.6.0
-  flutter_map: ^0.8.2
-  user_location: ^0.1.2
-  location: ^2.5.4
+#  flutter_map: ^0.8.2
+  flutter_map:
+    git:
+      url: git://github.com/ibrierley/flutter_map.git
+      ref: improve_tiles_display
   latlong: ^0.6.1
-  snapping_sheet:
-    git: https://github.com/AzazKamaz/snapping_sheet.git
+  dots_indicator: ^1.1.0
+  snapping_sheet: ^1.1.2
+  first_time_screen: ^1.0.3
+  device_id: ^0.2.0
+  here_maps_webservice: ^1.0.3
+  geolocator: ^5.3.0
+  flutter_map_marker_cluster:
+    git:
+      url: https://github.com/AzazKamaz/flutter_map_marker_cluster.git
+      ref: master
+  share: ^0.6.3+6
   flutter:
     sdk: flutter
 
@@ -51,9 +62,21 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #  - images/a_dot_burr.jpeg
-  #  - images/a_dot_ham.jpeg
+  assets:
+    - assets/icons/
+    - assets/splash_screen/
+    - assets/colors_icons/map_icons/
+    - assets/colors_icons/menu_icons/
+
+  fonts:
+    - family: PT Sans
+      fonts:
+        - asset: assets/fonts/PTSans-Regular.ttf
+          weight: 400
+    - family: Open Sans
+      fonts:
+        - asset: assets/fonts/OpenSans-Light.ttf
+          weight: 300
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
